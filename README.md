@@ -7,7 +7,6 @@
 #### Mac 사용하시는 분들 중 git이 설치되지 않은 경우 다음 링크를 참고해주세요.
 
   https://cotak.tistory.com/74?category=450979
-  
 #### Window 사용하시는 분들 중 git이 설치되지 않은 경우 다음 링크를 참고해주세요.
 
   https://jstar0525.tistory.com/181
@@ -35,7 +34,7 @@ $ touch .env
 ```
   - 필요 환경변수
   ```bash
-  SECRET_KEY =
+  SECRET_KEY=
   ```
 #### 잘 다운로드 받아졌는지 확인
 ```
