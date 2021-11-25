@@ -43,3 +43,6 @@ def init_db(request):
                 new_menu.restaurant = new_rest
                 new_menu.save()
     return redirect('home')
+
+def search(request):
+    pass
