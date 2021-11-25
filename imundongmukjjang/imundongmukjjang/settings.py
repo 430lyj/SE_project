@@ -12,10 +12,22 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 from decouple import config
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+	os.path.join(BASE_DIR, 'accounts', 'static'),
+	os.path.join(BASE_DIR, 'restaurants', 'static'),
+	# os.path.join(BASE_DIR, '앱이름', 'static')
+]
+
+# static django에서는 편의를 위해 흩어져있는 static파일을 한곳에 모으는데, 
+# 그때 파일을 모아줄 위치를 나타냅니다.
+STATIC_ROOT = os.path.join(BASE_DIR, 'static') # BASE_DIR/static
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -116,13 +128,11 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
-
-STATIC_URL = '/static/'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# 이용자가 업로드한 파일을 모아두는 곳
+MEDIA_URL = '/media/'
