@@ -16,14 +16,14 @@ class Restaurant(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, blank=True, null=True)
     address = models.CharField(max_length=255)
-    owner = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, blank=True, null=True)
+    owner = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, blank=True, null=True, default=None)
 
     def __str__(self):
         return self.name
 
 class Menu_Price(models.Model):
     menu = models.CharField(max_length=45)
-    price = models.IntegerField()
+    price = models.CharField(max_length=10)
     restaurant = models.ForeignKey('Restaurant', on_delete=models.CASCADE, null=False, blank=False)
 
     def __str__(self):
