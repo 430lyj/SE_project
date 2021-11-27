@@ -3,6 +3,8 @@ import pandas as pd
 from .models import Restaurant, Category, Menu_Price
 from pathlib import Path
 import os
+from imundongmukjjang.settings import KAKAO_APPKEY
+import json
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 filename = os.path.join(BASE_DIR, 'restaurants', 'restaurants.csv')
@@ -43,3 +45,13 @@ def init_db(request):
                 new_menu.restaurant = new_rest
                 new_menu.save()
     return redirect('home')
+
+def map_search(request):
+    keyword = request.GET.get('keyword')
+    restaurants = Menu_Price.objects.filter(menu__contains=keyword).prefetch_related("restaurant")
+    restaurants_list = list(restaurants)
+    data = []
+    for rest in restaurants_list:
+        if rest.restaurant not in data:
+            data.append(rest.restaurant)
+    return render(request, 'search.html', {'restaurants': data, 'keyword':keyword, 'KAKAO_APPKEY':KAKAO_APPKEY})
