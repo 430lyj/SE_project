@@ -35,6 +35,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static') # BASE_DIR/static
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
 
+KAKAO_APPKEY = config('KAKAO_APPKEY')
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 

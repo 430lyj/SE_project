@@ -20,11 +20,22 @@ class Restaurant(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def short_name(self):
+        first_name = self.name.split()[0]
+        if len(self.name) >= 7:
+            if '이문' in self.name.split()[0] :
+                first_name = first_name.replace('이문', ' ')
+            if '외대' in self.name:
+                first_name = first_name.replace('외대', ' ')
+            return self.name.split()[0]
+        else:
+            return self.name
 
 class Menu_Price(models.Model):
     menu = models.CharField(max_length=45)
     price = models.CharField(max_length=10)
-    restaurant = models.ForeignKey('Restaurant', on_delete=models.CASCADE, null=False, blank=False)
+    restaurant = models.ForeignKey('Restaurant', on_delete=models.CASCADE, null=False, blank=False, related_name="restaurant")
 
     def __str__(self):
         return self.menu
