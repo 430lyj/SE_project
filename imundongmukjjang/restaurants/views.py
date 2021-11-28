@@ -3,6 +3,8 @@ import pandas as pd
 from .models import Restaurant, Category, Menu_Price
 from pathlib import Path
 import os
+from .form import *
+from django.utils import timezone
 from imundongmukjjang.settings import KAKAO_APPKEY
 import json
 
@@ -11,6 +13,12 @@ filename = os.path.join(BASE_DIR, 'restaurants', 'restaurants.csv')
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
+
+def rest_page(request):
+    return render(request, 'rest_input.html')
+
+def menu_page(request):
+    return render(request, 'menu_input.html')
 
 def init_db(request):
     #pandas read_csv로 불러오기
@@ -55,3 +63,44 @@ def map_search(request):
         if rest.restaurant not in data:
             data.append(rest.restaurant)
     return render(request, 'search.html', {'restaurants': data, 'keyword':keyword, 'KAKAO_APPKEY':KAKAO_APPKEY})
+
+def add_restaurant(request):
+    if request.method == "POST":
+        form = RestaurantInput(request.POST)
+        if form.is_valid():
+            rest = form.save(commit=False)
+            rest.created_at = timezone.now()
+            rest.updated_at = timezone.now()
+            rest.save()
+            return render(request, "rest_input.html", {'register': "reg"})
+        else:
+            return render(request, "rest_input.html", {'register': "dup"})
+    elif request.method == "PUT":
+        form = RestaurantInput(request.POST)
+        if form.is_valid():
+            rest = form.save(commit=False)
+            rest.updated_at = timezone.now()
+            rest.save()
+            return render(request, "rest_input.html", {'register': "reg"})
+        else:
+            return render(request, "rest_input.html", {'register': "dup"})
+    else:
+        form = RestaurantInput()
+        return render(request, "rest_input.html", {'form': form})
+
+def add_menu_price(request):
+    if request.method == "POST":
+        form = MenuInput(request.POST)
+        if form.is_valid():
+            rest = form.save(commit=False)
+            rest.save()
+            return render(request, "menu_input.html", {'register': "reg"})
+    elif request.method == "PUT":
+        form = MenuInput(request.POST)
+        if form.is_valid():
+            rest = form.save(commit=False)
+            rest.save()
+            return render(request, "menu_input.html", {'register': "reg"})
+    else:
+        form = MenuInput()
+        return render(request, "menu_input.html", {'form': form})

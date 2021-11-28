@@ -9,7 +9,7 @@ class Category(models.Model):
         return self.name
 
 class Restaurant(models.Model):
-    name = models.CharField(max_length=60, null=False)
+    name = models.CharField(max_length=60, null=False, unique=True)
     phone = models.CharField(max_length=20, null=True)
     rating = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
