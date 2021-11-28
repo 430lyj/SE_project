@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <form method="POST">
+            {% csrf_token %}
+            <table>
+                {{form.as_table}}
+            </table>
+            <br>
+            <input class="btn" btn-dark type="submit" value="제출하기">
+        </form>
+    </div>
+    {% if register == "reg" %}
+    <script type="text/javascript">
+    alert("정상적으로 등록되었습니다.");
+    </script>
+    <script type="text/javascript">
+    location.href="{% url 'home' %}";
+    </script>
+    {% endif %}
+    <a href="{% url 'home' %}">돌아가기</a>
+</body>
+</html>
