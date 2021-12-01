@@ -34,5 +34,13 @@
     location.href="{% url 'accounts:signup' %}";
     </script>
     {% endif %}
+    {% if filled == 0 %}
+    <script type="text/javascript">
+    alert("모든 칸을 채워야 합니다.");
+    </script>
+    <script type="text/javascript">
+    location.href="{% url 'accounts:signup' %}";
+    </script>
+    {% endif %}
 </div>
 {% endblock %}
