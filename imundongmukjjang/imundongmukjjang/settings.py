@@ -138,3 +138,20 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # 이용자가 업로드한 파일을 모아두는 곳
 MEDIA_URL = '/media/'
+
+LOGGING = {
+    'version' : 1,
+    'disable_existing_loggers': False,
+    'handlers' : {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        }
+    },
+    'loggers': {
+        'django.db.backends': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    }
+}
