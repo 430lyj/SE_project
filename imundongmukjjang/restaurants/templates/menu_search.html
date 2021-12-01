@@ -1,0 +1,11 @@
+<html lang="en">
+    <h3>{{keyword}} 판매 식당 정보</h3>
+
+    <div class="menu_search">
+    {%for rest in restaurants %}
+    {{rest.name}} | {{rest.address}} |  {{rest.rating}}<br>
+    {% empty %}
+        <p> No restaurant ! </p>
+    {% endfor %}
+    </div>
+</html>

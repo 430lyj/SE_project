@@ -1,0 +1,26 @@
+{% block content %}
+
+<div class="sign-in">
+    <h1>Sign in!</h1>
+
+    <form method="POST" action="{% url 'accounts:signin' %}">
+        {% csrf_token %}
+        Username : 
+        <input name="username" type="text">
+        <br>
+        Password : 
+        <input name="password" type="password">
+        <br><br>
+        <input type="submit" class="btn btn-primary" value="sign in"></input>
+    </form>
+</div>
+{% if validity == 1 %}
+    <script type="text/javascript">
+    alert("아이디 혹은 비밀번호가 맞지 않습니다.");
+    </script>
+    <script type="text/javascript">
+    location.href="{% url 'accounts:signin' %}";
+    </script>
+{% endif %}
+
+{% endblock %}
