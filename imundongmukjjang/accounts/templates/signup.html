@@ -1,0 +1,38 @@
+{% block content %}
+
+<div class="sign-up">
+    <h1>Sign up!</h1>
+
+    <form method="POST" action="{% url 'accounts:signup' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        Username : 
+        <input name="username" type="text">
+        <br>
+        Password : 
+        <input name="password1" type="password">
+        <br>
+        Confirm Password : 
+        <input name="password2" type="password">
+        <br>
+        File
+        <input name="uploadedFile" type="file">
+        <br><br>
+        <input type="submit" class="btn btn-primary" value="sign up"></input>
+    </form>
+    {% if validity == 0 %}
+    <script type="text/javascript">
+    alert("이미 등록된 회원입니다.");
+    </script>
+    <script type="text/javascript">
+    location.href="{% url 'accounts:signup' %}";
+    </script>
+    {% elif validity == 1 %}
+    <script type="text/javascript">
+    alert("비밀번호가 일치하지 않습니다.")
+    </script>
+    <script type="text/javascript">
+    location.href="{% url 'accounts:signup' %}";
+    </script>
+    {% endif %}
+</div>
+{% endblock %}

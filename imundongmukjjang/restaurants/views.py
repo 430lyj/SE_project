@@ -8,6 +8,7 @@ from django.utils import timezone
 from imundongmukjjang.settings import KAKAO_APPKEY
 import json
 
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 filename = os.path.join(BASE_DIR, 'restaurants', 'restaurants.csv')
 # Create your views here.
@@ -104,3 +105,13 @@ def add_menu_price(request):
     else:
         form = MenuInput()
         return render(request, "menu_input.html", {'form': form})
+
+def menu_search(request):
+    keyword = request.GET.get('keyword')
+    restaurants = Menu_Price.objects.filter(menu__contains=keyword).prefetch_related("restaurant")
+    restaurants_list = list(restaurants)
+    data = []
+    for rest in restaurants_list:
+        if rest.restaurant not in data:
+            data.append(rest.restaurant)
+    return render(request, 'menu_search.html', {'restaurants': data, 'keyword':keyword})
