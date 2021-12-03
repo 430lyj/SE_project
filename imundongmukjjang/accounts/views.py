@@ -23,7 +23,7 @@ def signup(request):
     return render(request, 'signup.html')
 
 
-def signin(request):
+def login(request):
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -36,6 +36,6 @@ def signin(request):
     else:
         return render(request, 'signin.html')
 
-def signout(request):
+def logout(request):
     auth.logout(request)
     return redirect('home')

@@ -1,9 +1,9 @@
 {% block content %}
 
-<div class="sign-in">
-    <h1>Sign in!</h1>
+<div class="Log-in">
+    <h1>Log in!</h1>
 
-    <form method="POST" action="{% url 'accounts:signin' %}">
+    <form method="POST" action="{% url 'accounts:login' %}">
         {% csrf_token %}
         Username : 
         <input name="username" type="text">
@@ -11,7 +11,8 @@
         Password : 
         <input name="password" type="password">
         <br><br>
-        <input type="submit" class="btn btn-primary" value="sign in"></input>
+        <input type="submit" class="btn btn-primary" value="login"></input>
+        <button type="submit" class="btn btn-primary" value="signup"><a href={% url 'accounts:signup' %}>Sign-up</a></input>
     </form>
 </div>
 {% if validity == 1 %}
@@ -19,7 +20,7 @@
     alert("아이디 혹은 비밀번호가 맞지 않습니다.");
     </script>
     <script type="text/javascript">
-    location.href="{% url 'accounts:signin' %}";
+    location.href="{% url 'accounts:login' %}";
     </script>
 {% endif %}
 
