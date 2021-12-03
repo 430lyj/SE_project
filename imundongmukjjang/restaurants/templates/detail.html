@@ -4,13 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{{restaurant.name}}</title>
 </head>
 <body>
-    <h3>{{keyword}} 판매 식당 정보</h3>
-    {%for rest in restaurants %}
-    <a href={% url 'restaurants:detail' rest.id %}>{{rest.name}}</a><br>
-    {% endfor %}
+    
+    {{restaurant.name}}</br>
+    {{restaurant.phone}}</br>
+    {{restaurant.rating}}</br>
+    {{restaurant.category}}</br>
+    {{restaurant.address}}</br>
+    {% for menu in menus %}
+    {{menu.menu}} : {{menu.price}} <br>
+    {%endfor%}
     <div id="map" style="width:600px;height:500px;">
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{KAKAO_APPKEY}}&libraries=services,clusterer,drawing"></script>
     <script>
@@ -27,8 +32,7 @@
         var geocoder = new kakao.maps.services.Geocoder();
         
         // 주소로 좌표를 검색합니다
-        {% for rest in restaurants %}
-        geocoder.addressSearch("{{rest.address}}", function(result, status) {
+        geocoder.addressSearch("{{restaurant.address}}", function(result, status) {
             // 정상적으로 검색이 완료됐으면 
              if (status === kakao.maps.services.Status.OK) {
         
@@ -42,7 +46,7 @@
 
                 // 인포윈도우로 장소에 대한 설명을 표시합니다
                 var infowindow = new kakao.maps.InfoWindow({
-                    content: '<div style="width:150px;text-align:center;padding:6px 0;"><a href={% url 'restaurants:detail' rest.id %}>{{rest.short_name}}</a></div>'
+                    content: '<div style="width:150px;text-align:center;padding:6px 0;"><a href={% url 'restaurants:detail' restaurant.id %}>{{restaurant.short_name}}</a></div>'
                 });
 
                 (function(marker, infowindow) {
@@ -58,8 +62,11 @@
         })(marker, infowindow);
             } 
         });
-        {% endfor %}
         </script>
-    </div>
+        </div>
+    {% if owned == True %}
+    <a href="{% url 'restaurants:put_restaurant' restaurant.id %}">식당 정보 수정하기</a>
+    <a href="{% url 'restaurants:add_menu_price' restaurant.id %}">메뉴 정보 수정하기</a>
+    {% endif %}
 </body>
 </html>
