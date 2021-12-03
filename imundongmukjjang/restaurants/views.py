@@ -115,3 +115,10 @@ def menu_search(request):
         if rest.restaurant not in data:
             data.append(rest.restaurant)
     return render(request, 'menu_search.html', {'restaurants': data, 'keyword':keyword})
+
+def random_menu(request):
+    random_selected = Menu_Price.objects.order_by("?").first()
+    menu = random_selected.menu
+    price = random_selected.price
+    restaurant = random_selected.restaurant
+    return render(request, 'random_menu.html', {'menu':menu, 'price':price, 'restaurant':restaurant})

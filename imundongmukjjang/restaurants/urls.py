@@ -8,4 +8,5 @@ urlpatterns = [
     path('add_restaurant/', add_restaurant, name="add_restaurant"),
     path('add_menu_price/', add_menu_price, name="add_menu_price"),
     path('menu_search/', menu_search, name='menu_search'), 
+    path('random_menu', random_menu, name = "random_menu")
 ]
