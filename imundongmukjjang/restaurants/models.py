@@ -9,14 +9,14 @@ class Category(models.Model):
         return self.name
 
 class Restaurant(models.Model):
-    name = models.CharField(max_length=60, null=False, unique=True)
+    name = models.CharField(max_length=60, null=False)
     phone = models.CharField(max_length=20, null=True)
-    rating = models.FloatField()
+    rating = models.FloatField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, blank=True, null=True)
     address = models.CharField(max_length=255)
-    owner = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, blank=True, null=True, default=None)
+    owner = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, blank=True, null=True, default=None, related_name='owner')
 
     def __str__(self):
         return self.name

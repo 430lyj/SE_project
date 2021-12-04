@@ -8,11 +8,13 @@
 </head>
 <body>
     <div class="container">
-        <form method="POST">
+        <form method="POST" action="{% url 'restaurants:add_menu_price' restaurant.id %}">
             {% csrf_token %}
-            <table>
-                {{form.as_table}}
-            </table>
+            {% for menu in menus %}
+            {{menu.menu}} : {{menu.price}} <a href="{% url 'restaurants:menu_delete' menu.id %}">❌</a></br>
+            {% endfor %}
+            <input type="text" name="menu" placeholder='메뉴 이름'>
+            <input type="text" name="price" placeholder='가격'> 
             <br>
             <input class="btn" btn-dark type="submit" value="제출하기">
         </form>

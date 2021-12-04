@@ -8,14 +8,15 @@
 </head>
 <body>
     <div class="container">
-        <form method="POST" action="{% url 'restaurants:create_restaurant' %}">
+        <form action="{% url 'restaurants:put_restaurant' restaurant.id %}" method = "POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <table>
-                {{form.as_table}}
-            </table>
-                <input type="text" id="sample4_postcode" placeholder="우편번호">
+            <h4>식당 이름: <input type="text" name="title" value={{restaurant.name}}> </h4>
+            <h5>전화번호: <input type="text" name="phone" value="{{restaurant.phone}}"></h5>
+            <h5>카테고리: <input type="text" name="category" value={{restaurant.category}}></h5>
+            <br> 
+            <input type="text" id="sample4_postcode" placeholder="우편번호">
                 <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-                <input type="text" name="sample4_roadAddress" id="sample4_roadAddress" placeholder="도로명주소">
+                <input type="text" name="sample4_roadAddress" id="sample4_roadAddress" placeholder="도로명주소" value="{{restaurant.address}}">
                 <input type="text" name="sample4_jibunAddress" id="sample4_jibunAddress" placeholder="지번주소">
                 <span id="guide" style="color:#999;display:none"></span>
                 <input type="text" name="sample4_detailAddress"" id="sample4_detailAddress" placeholder="상세주소">
@@ -68,31 +69,22 @@
         }).open();
     }
 </script>
-            
-            <br>
-            <input class="btn" btn-dark type="submit" value="제출하기">
+<input class="btn" btn-dark type="submit" value="제출하기">
         </form>
     </div>
-    {% if register == 'dup' %}
+    {% if register == 'wrong' %}
     <script type="text/javascript">
-    alert("중복된 식당명입니다.");
+    alert("식당 소유가 확인되지 않았습니다. 소유 확인을 위해 사업자 등록증을 업로드해주세요.");
     </script>
     <script type="text/javascript">
-    location.href="{% url 'restaurants:post_restaurant' %}";
-    </script>
-    {% elif register == 'wrong' %}
-    <script type="text/javascript">
-    alert("잘못된 양식입니다.");
-    </script>
-    <script type="text/javascript">
-    location.href="{% url 'restaurants:post_restaurant' %}";
+    location.href="{% url 'home' %}";
     </script>
     {% elif register == 'reg' %}
     <script type="text/javascript">
     alert("정상적으로 등록되었습니다.")
     </script>
     <script type="text/javascript">
-    location.href="{% url 'restaurants:add_menu_price' restaurant.id%}";
+    location.href="{% url 'home' %}";
     </script>
     {% endif %}
     <a href="{% url 'home' %}">돌아가기</a>

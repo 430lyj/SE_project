@@ -5,7 +5,7 @@ from .models import Restaurant, Menu_Price
 class RestaurantInput(forms.ModelForm):
     class Meta:
         model = Restaurant
-        fields = ['name', 'phone', 'rating', 'category', 'address', 'owner']
+        fields = ['name', 'phone', 'category']
 
 class MenuInput(forms.ModelForm):
     class Meta:
