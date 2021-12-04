@@ -15,8 +15,12 @@ filename = os.path.join(BASE_DIR, 'restaurants', 'restaurants.csv')
 # Create your views here.
 def home(request):
     if request.user.is_authenticated:
-        restaurant = Restaurant.objects.get(owner__username=str(request.user))
-        return render(request, 'home.html', {'restaurant' : restaurant})
+        restaurant = Restaurant.objects.filter(owner__username=str(request.user))
+        length = len(restaurant)
+        if length > 0:
+            restaurant = restaurant[0]
+            return render(request, 'home.html', {'restaurant' : restaurant, 'len':length})    
+        return render(request, 'home.html', {'restaurant' : restaurant, 'len':length})
     return render(request, 'home.html')
 
 def rest_page(request):
@@ -94,14 +98,14 @@ def put_restaurant(request, id):
     restaurant = Restaurant.objects.get(id=id)
     menus = Menu_Price.objects.filter(restaurant__id=id)
     if restaurant.owner != None:
-        if request.method == 'POST' and restaurant.owner.username == request.user:
+        if request.method == 'POST' and restaurant.owner.username == str(request.user):
             restaurant.name = request.POST["title"]
             restaurant.phone = request.POST["phone"]
             restaurant.category = Category.objects.get(name=request.POST["category"])
             restaurant.address = request.POST["sample4_roadAddress"] + request.POST["sample4_detailAddress"]
             restaurant.save() 
             return redirect('restaurants:detail', restaurant.id)
-        elif request.method == 'POST' and restaurant.owner.name != request.user:
+        elif request.method == 'POST' and restaurant.owner.username != str(request.user):
             return render(request, "update.html", {'restaurant':restaurant, 'register':'wrong'})     
         else:
             return render(request, "update.html", {'restaurant':restaurant})   
@@ -120,14 +124,17 @@ def random_menu(request):
 def add_menu_price(request, restaurant_id):
     restaurant = Restaurant.objects.get(id=restaurant_id)
     menus = Menu_Price.objects.filter(restaurant__id=restaurant.id)
+    print(restaurant.owner != None)
     if restaurant.owner != None:
+        print('EA')
         if request.method == 'POST' and restaurant.owner.username == str(request.user):
+            print('EB')
             new_menu = Menu_Price()
             new_menu.menu = request.POST["menu"]
             new_menu.restaurant = restaurant
             new_menu.price = request.POST['price']
             new_menu.save()
-            return render(request, 'menu_input.html', {'restaurant':restaurant, 'menus':menus})
+        return render(request, 'menu_input.html', {'restaurant':restaurant, 'menus':menus})
     return render(request, "update.html", {'restaurant':restaurant, 'register':'wrong'})
 
 def menu_delete(request, menu_id):

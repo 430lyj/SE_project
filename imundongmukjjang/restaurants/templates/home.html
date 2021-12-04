@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="{% url 'restaurants:add_restaurant' %}">식당 정보 추가 페이지</a><br>
+    <a href="{% url 'restaurants:post_restaurant' %}">식당 정보 추가 페이지</a><br>
     <a href="{% url 'restaurants:random_menu' %}">랜덤 메뉴 추천</a>
     <form action="{% url 'restaurants:map_search' %}" method="GET">
         <input placeholder="위치별 메뉴 검색" type="search" name="keyword">
@@ -15,7 +15,9 @@
     </form>
     {% if user.is_authenticated %}
         <a href="{% url 'accounts:logout' %}">로그아웃</a><br>
+        {% if len > 0 %}
         <a href="{% url 'restaurants:put_restaurant' restaurant.id %}"> 식당 정보 수정하기</a>
+        {% endif %}
     {% else %}
         <a href="{% url 'accounts:login' %}">로그인</a><br>
         <a href="{% url 'accounts:signup' %}">회원가입</a>
