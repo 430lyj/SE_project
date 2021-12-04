@@ -7,7 +7,7 @@ class Big_Category(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=30)
-    big_category = models.ForeignKey(Big_Category, on_delete=models.SET_NULL,blank=True, null=True, related_name='big_category')
+    big_category = models.ForeignKey(Big_Category, on_delete=models.CASCADE,blank=True, null=True, related_name='big_category')
 
     def __str__(self):
         return self.name
@@ -21,6 +21,8 @@ class Restaurant(models.Model):
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, blank=True, null=True)
     address = models.CharField(max_length=255)
     owner = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, blank=True, null=True, default=None, related_name='owner')
+    max_price = models.IntegerField(default=0)
+    min_price = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -38,7 +40,7 @@ class Restaurant(models.Model):
 
 class Menu_Price(models.Model):
     menu = models.CharField(max_length=45)
-    price = models.CharField(max_length=10)
+    price = models.IntegerField()
     restaurant = models.ForeignKey('Restaurant', on_delete=models.CASCADE, null=False, blank=False, related_name="restaurant")
 
     def __str__(self):

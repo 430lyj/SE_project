@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 import pandas as pd
 from accounts.models import CustomUser
-from .models import Restaurant, Category, Menu_Price
+from .models import Big_Category, Restaurant, Category, Menu_Price
 from pathlib import Path
 import os
 from .form import *
@@ -30,7 +30,6 @@ def menu_page(request):
     return render(request, 'menu_input.html')
 
 def init_db(request):
-    #pandas read_csv로 불러오기
     data = pd.read_csv(filename, encoding = 'utf-8')
     data.head()
 
@@ -41,6 +40,7 @@ def init_db(request):
             temp.append(row)
             new_category = Category()
             new_category.name = row
+            new_category.big_category = Big_Category.objects.get(id=1)
             new_category.save()
 
     for row in data.itertuples():
@@ -53,14 +53,22 @@ def init_db(request):
             new_rest.rating = float(getattr(row, '별점'))
             category = getattr(row, '카테고리')
             new_rest.category = Category.objects.get(name=category)
-            new_rest.save()
             menus = eval(getattr(row, '메뉴'))
+            max_price, min_price = 0, 1000000
+            new_rest.save()
             for menu in menus.keys():
                 new_menu = Menu_Price()
                 new_menu.menu = menu
-                new_menu.price = menus[menu]
+                if menus[menu] != '':
+                    price = int(str(menus[menu]).replace(',',''))
+                else: price = 0
+                new_menu.price = price
+                if max_price < price: max_price = price
+                if min_price > price: min_price = price
                 new_menu.restaurant = new_rest
                 new_menu.save()
+            new_rest.max_price, new_rest.min_price = max_price, min_price
+            new_rest.save()
     return redirect('home')
 
 def map_search(request):
@@ -86,7 +94,6 @@ def create_restaurant(request):
         rest = form.save(commit=False)
         rest.owner = CustomUser.objects.get(id=request.user.id)
         rest.address = request.POST["sample4_roadAddress"] + request.POST["sample4_detailAddress"]
-        print(len(Restaurant.objects.filter(name=rest.name)) != 0)
         if len(Restaurant.objects.filter(name=rest.name)) != 0:
             return render(request, "rest_input.html", {'form':form1, 'register': 'dup'})
         rest.save()
@@ -126,9 +133,7 @@ def add_menu_price(request, restaurant_id):
     menus = Menu_Price.objects.filter(restaurant__id=restaurant.id)
     print(restaurant.owner != None)
     if restaurant.owner != None:
-        print('EA')
         if request.method == 'POST' and restaurant.owner.username == str(request.user):
-            print('EB')
             new_menu = Menu_Price()
             new_menu.menu = request.POST["menu"]
             new_menu.restaurant = restaurant
@@ -147,7 +152,8 @@ def detail(request, id):
     restaurants = Restaurant.objects.filter(id=id).prefetch_related('owner')
     restaurant = restaurants[0]
     owned = False
-    if restaurant.owner.username == str(request.user):
-        owned = True
+    if restaurant.owner != None and request.user.is_authenticated:
+        if restaurant.owner.username == str(request.user):
+            owned = True
     menus = Menu_Price.objects.filter(restaurant__id=id)
     return render(request, 'detail.html', {'restaurant': restaurant, 'menus':menus, 'KAKAO_APPKEY':KAKAO_APPKEY, 'owned':owned})
