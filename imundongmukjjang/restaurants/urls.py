@@ -11,5 +11,6 @@ urlpatterns = [
     path('<int:restaurant_id>/add_menu_price/', add_menu_price, name="add_menu_price"),
     path('<int:id>/', detail, name='detail'),
     path('<int:id>/update/', put_restaurant, name='put_restaurant'),
-    path('<int:menu_id>/delete/', menu_delete, name='menu_delete')
+    path('<int:menu_id>/delete/', menu_delete, name='menu_delete'),
+    path('random_menu', random_menu, name = "random_menu")
 ]

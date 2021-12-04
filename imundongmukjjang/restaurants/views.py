@@ -107,6 +107,12 @@ def put_restaurant(request, id):
             return render(request, "update.html", {'restaurant':restaurant})   
     return render(request, "update.html", {'restaurant':restaurant, 'register':'wrong'})
 
+def random_menu(request):
+    random_selected = Menu_Price.objects.order_by("?").first()
+    menu = random_selected.menu
+    price = random_selected.price
+    restaurant = random_selected.restaurant
+    return render(request, 'random_menu.html', {'menu':menu, 'price':price, 'restaurant':restaurant})
 
 # 메뉴 추가 가능하도록 해야 함.
 # 메뉴 삭제 가능하도록
