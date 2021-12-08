@@ -2,7 +2,11 @@
 {% load static %}
 {% block title %}부엉아 밥먹자- 이문동 식당 추천 시스템{%endblock%}
     {% block content %}
-
+    {% if assurance == False %}
+    <a href="javascript:alert('승인 후 이용가능합니다.');">식당 정보 추가 페이지</a><br>
+    {% elif assurance == True %}
+    <a href="{% url 'restaurants:post_restaurant' %}">식당 정보 추가 페이지</a><br>
+    {% endif %}
     <section class="slider-section">
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
@@ -89,4 +93,3 @@
         </div>
     </section>
     {% endblock %}
-

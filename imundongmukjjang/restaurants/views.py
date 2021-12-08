@@ -18,10 +18,11 @@ def home(request):
     if request.user.is_authenticated:
         restaurant = Restaurant.objects.filter(owner__username=str(request.user))
         length = len(restaurant)
+        user = CustomUser.objects.values("is_assured")
         if length > 0:
             restaurant = restaurant[0]
-            return render(request, 'home.html', {'restaurant' : restaurant, 'len':length})    
-        return render(request, 'home.html', {'restaurant' : restaurant, 'len':length})
+            return render(request, 'home.html', {'restaurant' : restaurant, 'len':length, 'assurance': user[0]['is_assured']})
+        return render(request, 'home.html', {'restaurant' : restaurant, 'len':length, 'assurance': user[0]['is_assured']})
     return render(request, 'home.html')
 
 def rest_page(request):
@@ -87,27 +88,28 @@ def map_search(request):
 
 @login_required
 def post_restaurant(request):
-    form  = RestaurantInput()
+    form = RestaurantInput()
     return render(request, 'rest_input.html', {'form': form})
 
 @login_required
 def create_restaurant(request):
-    form1 =  RestaurantInput()
-    form  = RestaurantInput(request.POST)
+    form1 = RestaurantInput()
+    form = RestaurantInput(request.POST)
     if form.is_valid():
         rest = form.save(commit=False)
         rest.owner = CustomUser.objects.get(id=request.user.id)
         rest.address = request.POST["sample4_roadAddress"] + request.POST["sample4_detailAddress"]
         if len(Restaurant.objects.filter(name=rest.name)) != 0:
-            return render(request, "rest_input.html", {'form':form1, 'register': 'dup'})
+            return render(request, "rest_input.html", {'form': form1, 'register': 'dup'})
         rest.save()
         return redirect('restaurants:detail', rest.id)
-    return render(request, "rest_input.html", {'form':form1, 'register': 'wrong'})
+    return render(request, "rest_input.html", {'form': form1, 'register': 'wrong'})
 
 @login_required
 def put_restaurant(request, id):
     restaurant = Restaurant.objects.get(id=id)
     menus = Menu_Price.objects.filter(restaurant__id=id)
+    ct = Category.objects.all()
     if restaurant.owner != None:
         if request.method == 'POST' and restaurant.owner.username == str(request.user):
             restaurant.name = request.POST["title"]
@@ -117,10 +119,10 @@ def put_restaurant(request, id):
             restaurant.save() 
             return redirect('restaurants:detail', restaurant.id)
         elif request.method == 'POST' and restaurant.owner.username != str(request.user):
-            return render(request, "update.html", {'restaurant':restaurant, 'register':'wrong'})     
+            return render(request, "update.html", {'restaurant':restaurant, 'register':'wrong', "ct": ct})
         else:
-            return render(request, "update.html", {'restaurant':restaurant})   
-    return render(request, "update.html", {'restaurant':restaurant, 'register':'wrong'})
+            return render(request, "update.html", {'restaurant':restaurant, "ct": ct})
+    return render(request, "update.html", {'restaurant':restaurant, 'register':'wrong', "ct": ct})
 
 def random_menu(request):
     #가격이 0원이 아니고 None이 아닌 메뉴가 골라질 때까지 반복
