@@ -9,6 +9,7 @@ from django.utils import timezone
 from imundongmukjjang.settings import KAKAO_APPKEY
 import json
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 filename = os.path.join(BASE_DIR, 'restaurants', 'restaurants.csv')
@@ -74,13 +75,16 @@ def init_db(request):
 
 def map_search(request):
     keyword = request.GET.get('keyword')
-    restaurants = Menu_Price.objects.filter(menu__contains=keyword).prefetch_related("restaurant")
-    restaurants_list = list(restaurants)
-    data = []
-    for rest in restaurants_list:
-        if rest.restaurant not in data:
-            data.append(rest.restaurant)
-    return render(request, 'search.html', {'restaurants': data, 'keyword':keyword, 'KAKAO_APPKEY':KAKAO_APPKEY})
+    if keyword != None:
+        restaurants = Menu_Price.objects.filter(menu__contains=keyword).prefetch_related("restaurant")
+        restaurants_list = list(restaurants)
+        data = []
+        for rest in restaurants_list:
+            if rest.restaurant not in data:
+                data.append(rest.restaurant)
+        return render(request, 'search.html', {'restaurants': data, 'keyword':keyword, 'KAKAO_APPKEY':KAKAO_APPKEY})
+    return render(request, 'search.html')
+    
 
 @login_required
 def post_restaurant(request):
@@ -121,10 +125,15 @@ def put_restaurant(request, id):
     return render(request, "update.html", {'restaurant':restaurant, 'register':'wrong', "ct": ct})
 
 def random_menu(request):
-    random_selected = Menu_Price.objects.order_by("?").first()
-    menu = random_selected.menu
-    price = random_selected.price
-    restaurant = random_selected.restaurant
+    #가격이 0원이 아니고 None이 아닌 메뉴가 골라질 때까지 반복
+    while True:
+        random_selected = Menu_Price.objects.order_by("?").first()
+        menu = random_selected.menu
+        price = random_selected.price
+        restaurant = random_selected.restaurant
+        #가격이 0원이 아니고 None이 아니면 반복문 탈출
+        if price !=0 and price != None:
+            break
     return render(request, 'random_menu.html', {'menu':menu, 'price':price, 'restaurant':restaurant})
 
 # 메뉴 추가 가능하도록 해야 함.
@@ -159,3 +168,15 @@ def detail(request, id):
             owned = True
     menus = Menu_Price.objects.filter(restaurant__id=id)
     return render(request, 'detail.html', {'restaurant': restaurant, 'menus':menus, 'KAKAO_APPKEY':KAKAO_APPKEY, 'owned':owned})
+
+def category(request):
+    categories = Big_Category.objects.all()
+    return render(request, 'category.html', {'categories':categories})
+
+def category_detail(request, category_id):
+    restaurants = Restaurant.objects.filter(category__big_category__id=category_id).order_by('-id')
+    paginator = Paginator(restaurants, 10)
+    page = request.GET.get('page')
+    paginated_restaurants = paginator.get_page(page)
+    print(restaurants)
+    return render(request, 'category_detail.html', {'restaurants':paginated_restaurants, 'KAKAO_APPKEY':KAKAO_APPKEY})

@@ -1,12 +1,9 @@
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Random_selected_dish</title>
-    </head>
-    <body>
-        <p>오늘은 {{ menu }} 어떠세요? </p>
-        <p>{{ restaurant }}에서 {{ price }}원에 판매하고 있어요 : ) </p><br>
-    </body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}랜덤 메뉴 - 부엉아 밥먹자{%endblock%}
+{% block link %}
+{%endblock%}
+{% block content %}
+        <h3>오늘은 {{ menu }} 어떠세요? </h3>
+        <h3>{{ restaurant }}에서 {{ price }}원에 판매하고 있어요 : ) </h3><br>
+{% endblock %}

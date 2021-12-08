@@ -12,5 +12,7 @@ urlpatterns = [
     path('<int:id>/', detail, name='detail'),
     path('<int:id>/update/', put_restaurant, name='put_restaurant'),
     path('<int:menu_id>/delete/', menu_delete, name='menu_delete'),
-    path('random_menu', random_menu, name = "random_menu")
+    path('random_menu/', random_menu, name="random_menu"),
+    path('category/', category, name="category"),
+    path('category_detail/<int:category_id>/', category_detail, name="category_detail"),
 ]

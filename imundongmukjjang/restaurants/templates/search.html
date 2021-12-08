@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}위치별 메뉴 검색 - 부엉아 밥먹자{%endblock%}
+{% block link %}
+{%endblock%}
+{% block content %}
     <h3>{{keyword}} 판매 식당 정보</h3>
     {%for rest in restaurants %}
     <a href={% url 'restaurants:detail' rest.id %}>{{rest.name}}</a><br>
@@ -61,5 +58,4 @@
         {% endfor %}
         </script>
     </div>
-</body>
-</html>
+{% endblock %}
