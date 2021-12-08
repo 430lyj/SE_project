@@ -18,7 +18,8 @@ def signup(request):
                 return redirect('home')
             else:
                 return render(request, "signup.html", {"validity": 1})  # 입력한 비밀번호 두 개가 일치하지 않을 경우
-        except Exception:
+        except Exception as e:
+            print(e)
             return render(request, "signup.html", {"filled": 0})
     return render(request, 'signup.html')
 

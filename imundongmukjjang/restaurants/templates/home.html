@@ -1,26 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <a href="{% url 'restaurants:post_restaurant' %}">식당 정보 추가 페이지</a><br>
-    <a href="{% url 'restaurants:random_menu' %}">랜덤 메뉴 추천</a>
-    <form action="{% url 'restaurants:map_search' %}" method="GET">
-        <input placeholder="위치별 메뉴 검색" type="search" name="keyword">
-        <button class="btn btn-outline-light" type="submit">검색</button>
-    </form>
-    {% if user.is_authenticated %}
-        <a href="{% url 'accounts:logout' %}">로그아웃</a><br>
-        {% if len > 0 %}
-        <a href="{% url 'restaurants:put_restaurant' restaurant.id %}"> 식당 정보 수정하기</a>
-        {% endif %}
-    {% else %}
-        <a href="{% url 'accounts:login' %}">로그인</a><br>
-        <a href="{% url 'accounts:signup' %}">회원가입</a>
-    {% endif %}
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}부엉아 밥먹자- 이문동 식당 추천 시스템{%endblock%}
+    {% block content %}
+
+    <section class="slider-section">
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators slider-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img src="{% static 'images/banner-map.gif' %}" width="1648" height="600" alt="">
+                    <div class="carousel-caption">
+                        <!--<h2>DRESSES <b>&</b> JEANS</h2>-->
+                        <h3>위치별 메뉴로 검색하기</h3>
+                        <a href="{% url 'restaurants:map_search'%}">GO</a>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{% static 'images/banner-menu.gif' %}" width="1648" height="600" alt="">
+                    <div class="carousel-caption">
+                        <!--<h2>DRESSES <b>&</b> JEANS</h2>-->
+                        <h3>카테고리별로 선택하기 <!--<Span>SALE</Span>--></h3>
+                        <a href="menu.html">GO</a>
+                    </div>
+                </div>
+                <div class="item ">
+                    <img src="{% static 'images/boo.gif' %}" width="1648" height="600" alt="">
+                    <div class="carousel-caption">
+                        <h2><b>오늘 뭐 먹지?</b></h2>
+                        <h3>랜덤 추천</h3>
+                        <a href="{% url 'restaurants:random_menu' %}">랜덤GO</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                <span class="pe-7s-angle-left glyphicon-chevron-left" aria-hidden="true"></span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                <span class="pe-7s-angle-right glyphicon-chevron-right" aria-hidden="true"></span>
+            </a>
+        </div>
+    </section>
+
+    <section class="service-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6 wow fadeInRight animated" data-wow-delay="0.1s">
+                    <div class="service-item">
+                        <a href="{% url 'restaurants:map_search' %}">
+                        <i class="pe-7s-map-2"></i>
+                        <h3>위치별 메뉴 검색</h3>
+                        <p>정문까지 가기 귀찮은데<br>후문에 맛있는거 없나?</p></a>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 wow fadeInRight animated" data-wow-delay="0.2s">
+                    <a href="{% url 'restaurants:map_search' %}">
+                    <div class="service-item">
+                        <i class="pe-7s-way"></i>
+                        <h3>카테고리별 검색</h3>
+                        <p>카테고리별로 모아보기</p></a>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 wow fadeInRight animated" data-wow-delay="0.3s">
+                    <div class="service-item">
+                        <a href="{% url 'restaurants:random_menu' %}">
+                        <i class="pe-7s-help1"></i>
+                        <h3>랜덤 검색</h3>
+                        <p>뭐 먹을지 고민될 때<br>부가 추천해주는<br>오늘의 메뉴</p></a>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 wow fadeInRight animated" data-wow-delay="0.4s">
+                    <div class="service-item">
+                        <a href="{% url 'restaurants:post_restaurant' %}">
+                        <i class="pe-7s-note"></i>
+                        <h3> 정보 편집 가능</h3>
+                        <p>사업자 로그인을 하면<br>식당의 정보를<br>직접 편집할 수 있습니다.</p></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock %}
+

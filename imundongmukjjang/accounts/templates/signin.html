@@ -1,27 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}로그인- 부엉아 밥먹자 {%endblock%}
+{% block link %}
+    <link rel="stylesheet" href="{% static 'css/form-elements.css' %}">
+    <link rel="stylesheet" href="{% static 'css/loginstyle.css' %}">
+{%endblock%}
 {% block content %}
 
-<div class="Log-in">
-    <h1>Log in!</h1>
+<section class="featured-section">
 
-    <form method="POST" action="{% url 'accounts:login' %}">
-        {% csrf_token %}
-        Username : 
-        <input name="username" type="text">
-        <br>
-        Password : 
-        <input name="password" type="password">
-        <br><br>
-        <input type="submit" class="btn btn-primary" value="login"></input>
-        <button type="submit" class="btn btn-primary" value="signup"><a href={% url 'accounts:signup' %}>Sign-up</a></input>
-    </form>
-</div>
-{% if validity == 1 %}
-    <script type="text/javascript">
-    alert("아이디 혹은 비밀번호가 맞지 않습니다.");
-    </script>
-    <script type="text/javascript">
-    location.href="{% url 'accounts:login' %}";
-    </script>
-{% endif %}
+    <div class="container">
+            
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="titie-section wow fadeInDown animated ">
+                    <h1>Login</h1>
+                </div>
+            </div>
+        </div>
+            
+        <div class="row">
+            <div class="col-sm-5">
+                    
+                <div class="form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3>로그인하여 식당 정보를 직접 관리하세요.</h3>
+                            <p>Log in to manage your restaurant information.</p>
+                        </div>
+                        <div class="form-top-right">
+                            <i class="fa fa-key"></i>
+                        </div>
+                    </div>
+                    <div class="form-bottom">
+                        <form role="form" action="{% url 'accounts:login' %}" method="post" class="login-form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label class="sr-only" for="form-username">Username</label>
+                                <input type="text" name="username" placeholder="Username" class="form-username form-control" id="form-username">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="form-password">Password</label>
+                                <input type="password" name="password" placeholder="Password" class="form-password form-control" id="form-password">
+                            </div>
+                            <button type="submit" class="btn">LOGIN</button>
+                        </form>
+                    </div>
+                    <div class="row">
+                        <h3>아직 회원이 아니신가요?</h3>
+                        <button type="submit" class="btn" onclick = "location.href = '{% url 'accounts:signup' %}' ">회원가입</button>
+                        
+                    </div>
+
+                </div>
+                
+            </div>
+        </section>
+        {% if validity == 1 %}
+            <script type="text/javascript">
+            alert("아이디 혹은 비밀번호가 맞지 않습니다.");
+            </script>
+            <script type="text/javascript">
+            location.href="{% url 'accounts:login' %}";
+            </script>
+        {% endif %}
 
 {% endblock %}

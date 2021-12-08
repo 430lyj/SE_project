@@ -1,24 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}회원가입- 부엉아 밥먹자 {%endblock%}
+{% block link %}
+    <link rel="stylesheet" href="{% static 'css/form-elements.css' %}">
+    <link rel="stylesheet" href="{% static 'css/loginstyle.css' %}">
+{%endblock%}
 {% block content %}
 
-<div class="sign-up">
-    <h1>Sign up!</h1>
-
-    <form method="POST" action="{% url 'accounts:signup' %}" enctype="multipart/form-data">
-        {% csrf_token %}
-        Username : 
-        <input name="username" type="text">
-        <br>
-        Password : 
-        <input name="password1" type="password">
-        <br>
-        Confirm Password : 
-        <input name="password2" type="password">
-        <br>
-        File
-        <input name="uploadedFile" type="file">
-        <br><br>
-        <input type="submit" class="btn btn-primary" value="완료"></input>
-    </form>
+<section class="featured-section">
+    <div class="container">
+            
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="titie-section wow fadeInDown animated ">
+                    <h1>회원가입</h1>
+                </div>
+            </div>
+        </div>
+            
+        <div class="row">
+            <div class="col-sm-5">
+                    
+                <div class="form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3>회원가입을 위해 정보를 기입해주세요.</h3>
+                            <p>Fill in the form below to get instant</p>
+                        </div>
+                        <div class="form-top-right">
+                            <i class="fa fa-pencil"></i>
+                        </div>
+                    </div>
+                    <div class="form-bottom">
+                        <form role="form" action="{% url 'accounts:signup' %}" method="post" class="login-form" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label class="sr-only" for="form-username">Username</label>
+                                <input type="text" name="username" placeholder="Username..." class="form-username form-control" id="form-username">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="form-password">Password</label>
+                                <input type="password" name="password1" placeholder="Password..." class="form-password form-control" id="form-password">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="form-password">Verify Password</label>
+                                <input type="password" name="password2" placeholder="Verify Password..." class="form-password form-control" id="form-password">
+                            </div>
+                            <div class="form-group">
+                                <a><strong>사업자 등록증 첨부</strong></a>
+                                    <label class="sr-only" action="http://localhost/upload.php" method="post" enctype="multipart/form-data">Business Registration</label>
+                                    <input type="file" name="uploadedFile" placeholder="사업자등록증 첨부">
+                            </div>
+                            
+                            <button type="submit" class="btn">REGISTER</button>
+                        </form>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </section>
     {% if validity == 0 %}
     <script type="text/javascript">
     alert("이미 등록된 회원입니다.");

@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}식당 정보 수정 - 부엉아 밥먹자{%endblock%}
+{% block link %}
+{%endblock%}
+{% block content %}
     <div class="container">
         <form action="{% url 'restaurants:put_restaurant' restaurant.id %}" method = "POST" enctype="multipart/form-data">
             {% csrf_token %}
@@ -88,5 +85,4 @@
     </script>
     {% endif %}
     <a href="{% url 'home' %}">돌아가기</a>
-</body>
-</html>
+{% endblock %}

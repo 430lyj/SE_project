@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{restaurant.name}}</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{restaurant}} - 부엉아 밥먹자{%endblock%}
+{% block link %}
+{%endblock%}
+{% block content %}
     
     {{restaurant.name}}</br>
     {{restaurant.phone}}</br>
@@ -68,5 +65,4 @@
     <a href="{% url 'restaurants:put_restaurant' restaurant.id %}">식당 정보 수정하기</a>
     <a href="{% url 'restaurants:add_menu_price' restaurant.id %}">메뉴 정보 수정하기</a>
     {% endif %}
-</body>
-</html>
+{%endblock%}

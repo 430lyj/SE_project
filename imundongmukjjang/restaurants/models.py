@@ -5,6 +5,9 @@ from accounts.models import CustomUser
 class Big_Category(models.Model):
     name = models.CharField(max_length=45)
 
+    def __str__(self):
+        return self.name
+
 class Category(models.Model):
     name = models.CharField(max_length=30)
     big_category = models.ForeignKey(Big_Category, on_delete=models.CASCADE,blank=True, null=True, related_name='big_category')
