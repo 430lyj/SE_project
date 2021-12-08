@@ -82,8 +82,8 @@ def map_search(request):
             data.append(rest.restaurant)
     return render(request, 'search.html', {'restaurants': data, 'keyword':keyword, 'KAKAO_APPKEY':KAKAO_APPKEY})
 
-def order_by_cost(request, keyword):
-    #keyword = request.GET.get('keyword')
+def order_by_cost(request):
+    keyword = request.GET.get('keyword')
     restaurants = Menu_Price.objects.filter(menu__contains=keyword).prefetch_related("restaurant").order_by('price')
     restaurants_list = list(restaurants)
     data = []

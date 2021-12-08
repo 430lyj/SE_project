@@ -7,8 +7,9 @@
     <title>Document</title>
 </head>
 <body>
+    <h3>{{keyword}} 판매 식당 정보</h3>
     <form action="{% url 'restaurants:order_by_cost' %}" method="GET">
-        <h3>{{keyword}} 판매 식당 정보</h3>
+        <input value={{keyword}} type="text" name="keyword">
         <button class="order_by_cost" type="submit">낮은가격순</button>
     </form>
     <br>
