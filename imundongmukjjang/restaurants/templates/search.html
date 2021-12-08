@@ -7,7 +7,11 @@
     <title>Document</title>
 </head>
 <body>
-    <h3>{{keyword}} 판매 식당 정보</h3>
+    <form action="{% url 'restaurants:order_by_cost' %}" method="GET">
+        <h3>{{keyword}} 판매 식당 정보</h3>
+        <button class="order_by_cost" type="submit">낮은가격순</button>
+    </form>
+    <br>
     {%for rest in restaurants %}
     <a href={% url 'restaurants:detail' rest.id %}>{{rest.name}}</a><br>
     {% endfor %}

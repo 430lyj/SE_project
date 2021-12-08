@@ -82,6 +82,17 @@ def map_search(request):
             data.append(rest.restaurant)
     return render(request, 'search.html', {'restaurants': data, 'keyword':keyword, 'KAKAO_APPKEY':KAKAO_APPKEY})
 
+def order_by_cost(request, keyword):
+    #keyword = request.GET.get('keyword')
+    restaurants = Menu_Price.objects.filter(menu__contains=keyword).prefetch_related("restaurant").order_by('price')
+    restaurants_list = list(restaurants)
+    data = []
+    for rest in restaurants_list:
+        if rest.restaurant not in data:
+            data.append(rest.restaurant)
+    return render(request, 'search.html', {'restaurants': data, 'keyword':keyword, 'KAKAO_APPKEY':KAKAO_APPKEY})
+
+
 @login_required
 def post_restaurant(request):
     form = RestaurantInput()
@@ -159,3 +170,4 @@ def detail(request, id):
             owned = True
     menus = Menu_Price.objects.filter(restaurant__id=id)
     return render(request, 'detail.html', {'restaurant': restaurant, 'menus':menus, 'KAKAO_APPKEY':KAKAO_APPKEY, 'owned':owned})
+
