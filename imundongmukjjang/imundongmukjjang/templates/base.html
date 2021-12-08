@@ -48,10 +48,11 @@
                                 <!--<li><a href="#">Cart</a></li>-->
                                 <!--<li><a href="#">Checkout</a></li>-->
                                 {% if user.is_authenticated %}
-                                <li><a href="{% url 'accounts:logout' %}"><i class="pe-7s-lock"></i> 로그아웃</a></li>
+                                <li><a href="{% url 'accounts:logout' %}"><i class="pe-7s-unlock"></i> 로그아웃</a></li>
+                                <li><a href="{% url 'restaurants:post_restaurant' %}"><i class="pe-7s-plus"></i> 식당 추가하기</a></li>
                                 {% else %}
                                 <li><a href="{% url 'accounts:login' %}"><i class="pe-7s-lock"></i> 로그인</a></li>
-                                <li><a href="{% url 'accounts:signup' %}"><i class="pe-7s-lock"></i> 회원가입</a></li>
+                                <li><a href="{% url 'accounts:signup' %}"><i class="pe-7s-add-user"></i> 회원가입</a></li>
                                 {% endif %}
                             </ul>
                         </div>

@@ -2,11 +2,6 @@
 {% load static %}
 {% block title %}부엉아 밥먹자- 이문동 식당 추천 시스템{%endblock%}
     {% block content %}
-    {% if assurance == False %}
-    <a href="javascript:alert('승인 후 이용가능합니다.');">식당 정보 추가 페이지</a><br>
-    {% elif assurance == True %}
-    <a href="{% url 'restaurants:post_restaurant' %}">식당 정보 추가 페이지</a><br>
-    {% endif %}
     <section class="slider-section">
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
@@ -83,7 +78,11 @@
                 </div>
                 <div class="col-md-3 col-sm-6 wow fadeInRight animated" data-wow-delay="0.4s">
                     <div class="service-item">
-                        <a href="{% url 'restaurants:post_restaurant' %}">
+                        {% if assurance == False %}
+                        <a href="javascript:alert('관리자가 식당 승인 후 이용가능합니다.');">
+                        {% elif assurance == True %}
+                        <a href="{% url 'restaurants:put_restaurant' %}">
+                        {% endif %}
                         <i class="pe-7s-note"></i>
                         <h3> 정보 편집 가능</h3>
                         <p>사업자 로그인을 하면<br>식당의 정보를<br>직접 편집할 수 있습니다.</p></a>
