@@ -24,14 +24,6 @@
 
 ## 사용 방법 
 ### IDE는 VS Code를 기준으로 합니다.
-
-#### Mac 사용하시는 분들 중 git이 설치되지 않은 경우 다음 링크를 참고해주세요.
-
-  https://cotak.tistory.com/74?category=450979
-#### Window 사용하시는 분들 중 git이 설치되지 않은 경우 다음 링크를 참고해주세요.
-
-  https://jstar0525.tistory.com/181
-<hr/>
   
 #### 깃에서 초기 파일을 내려 받는 방법 (VS code에서 빈 폴더 생성 후)
 ```
