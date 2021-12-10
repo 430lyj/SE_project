@@ -48,8 +48,8 @@
                                 <!--<li><a href="#">Cart</a></li>-->
                                 <!--<li><a href="#">Checkout</a></li>-->
                                 {% if user.is_authenticated %}
+                                <li><a href="{% url 'accounts:mypage' %}"><i class="pe-7s-user"></i> 마이페이지</a></li>
                                 <li><a href="{% url 'accounts:logout' %}"><i class="pe-7s-unlock"></i> 로그아웃</a></li>
-                                <li><a href="{% url 'restaurants:post_restaurant' %}"><i class="pe-7s-plus"></i> 식당 추가하기</a></li>
                                 {% else %}
                                 <li><a href="{% url 'accounts:login' %}"><i class="pe-7s-lock"></i> 로그인</a></li>
                                 <li><a href="{% url 'accounts:signup' %}"><i class="pe-7s-add-user"></i> 회원가입</a></li>
@@ -82,7 +82,7 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li><a href="{% url 'restaurants:map_search'%}">위치별</a></li>
+                            <li><a href="{% url 'restaurants:map_search' 0 %}">위치별</a></li>
                             <li><a href="{% url 'restaurants:category' %}">카테고리별</a></li>
                             <li><a href="{% url 'restaurants:random_menu' %}">랜덤 추천</a></li>
                             <!--<li><a href="#">Contact Us</a></li>-->
@@ -100,7 +100,7 @@
             <div class="container">
                 <div class="row subscribe-from">
                     <div class="col-md-12">
-                        <form class="form-inline col-md-12 wow fadeInDown animated" action="{% url 'restaurants:map_search' %}" method="GET">
+                        <form class="form-inline col-md-12 wow fadeInDown animated" action="{% url 'restaurants:map_search' 0 %}" method="GET">
                             <div class="form-group">
                                 <input type="search" class="form-control" id="search" placeholder="위치별 메뉴 검색" name="keyword">
                                 <button class="suscribe-btn" type="submit"><i class="pe-7s-search"></i></button>
@@ -119,6 +119,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <p class="center">IMUNDONG <i class="fa fa-love"></i><a href="#">MUKZZANG</a>
+                        <p class="center" style="color: #666666;">©캐릭터 Boo는 한국외대 지식출판콘텐츠원의 지적재산입니다.</p>
 </p>
                         
                     </div>
@@ -134,4 +135,6 @@
         <script src="{% static 'js/wow.min.js' %}"></script>
         <script src="{% static 'js/custom.js' %}"></script>
     </body>
+    {% block bottom %}
+    {% endblock %}
 </html>

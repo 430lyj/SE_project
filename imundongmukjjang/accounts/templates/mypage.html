@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}마이페이지 - 부엉아 밥먹자{%endblock%}
+{% block link %}
+{%endblock%}
+{% block content %}
+<section class="review-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="titie-section wow fadeInDown animated ">
+                    <h1>마이페이지</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="service-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 wow fadeInRight animated" data-wow-delay="0.1s">
+                <div class="service-item">
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 wow fadeInRight animated" data-wow-delay="0.2s">
+                <div class="service-item">
+                    <a href="{% url 'restaurants:post_restaurant' %}">
+                        <i class="pe-7s-plus"></i>
+                        <h3>식당 정보 추가하기</h3>
+                        <p>식당을 추가하여 직접</br>관리할 수 있습니다.</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 wow fadeInRight animated" data-wow-delay="0.3s">
+                <div class="service-item">
+                    <a href="{% url 'restaurants:put_restaurant' %}">
+                    <i class="pe-7s-note"></i>
+                    <h3>식당 정보 수정하기</h3>
+                    <p>식당에 대한 정보를<br>수정할 수 있습니다.</p>
+                </a>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 wow fadeInRight animated" data-wow-delay="0.4s">
+                <div class="service-item">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{%endblock%}

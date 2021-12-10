@@ -18,7 +18,7 @@
                     <div class="carousel-caption">
                         <!--<h2>DRESSES <b>&</b> JEANS</h2>-->
                         <h3>위치별 메뉴로 검색하기</h3>
-                        <a href="{% url 'restaurants:map_search'%}">GO</a>
+                        <a href="{% url 'restaurants:map_search' 0 %}">GO</a>
                     </div>
                 </div>
                 <div class="item">
@@ -54,14 +54,14 @@
             <div class="row">
                 <div class="col-md-3 col-sm-6 wow fadeInRight animated" data-wow-delay="0.1s">
                     <div class="service-item">
-                        <a href="{% url 'restaurants:map_search' %}">
+                        <a href="{% url 'restaurants:map_search' 0 %}">
                         <i class="pe-7s-map-2"></i>
                         <h3>위치별 메뉴 검색</h3>
                         <p>정문까지 가기 귀찮은데<br>후문에 맛있는거 없나?</p></a>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 wow fadeInRight animated" data-wow-delay="0.2s">
-                    <a href="{% url 'restaurants:map_search' %}">
+                    <a href="{% url 'restaurants:map_search' 0 %}">
                     <div class="service-item">
                         <i class="pe-7s-way"></i>
                         <h3>카테고리별 검색</h3>

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}랜덤 메뉴 - 부엉아 밥먹자{%endblock%}
+{% block link %}
+{%endblock%}
+{% block content %}
+<section class="review-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="titie-section wow fadeInDown animated ">
+                        <h1>랜덤 추천</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 wow fadeInLeft animated">
+                    <div class="left-content">
+                        <h1></br></br>오늘은 <span>{{ menu }}</span> <br>어떠세요?</h1>
+                        <h2><span><a href="{% url 'restaurants:detail' restaurant.id %}">{{restaurant }}</a></span>에서</br>
+                            <span>{{ price }}</span>원에 판매하고 있어요!</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br><br><br><br><br><br>
+{% endblock %}

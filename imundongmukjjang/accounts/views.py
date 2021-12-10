@@ -2,6 +2,7 @@ from django.contrib.auth.models import UserManager
 from django.shortcuts import render, redirect
 from .models import CustomUser
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -40,3 +41,7 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('home')
+
+@login_required
+def mypage(request):
+    return render(request, 'mypage.html')
