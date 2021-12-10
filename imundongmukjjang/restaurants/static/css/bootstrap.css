@@ -5,8 +5,9 @@
  */
 
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+
 html {
-  font-family: sans-serif;
+  font-family: 'Spoqa',sans-serif;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
@@ -910,7 +911,7 @@ input,
 button,
 select,
 textarea {
-  font-family: inherit;
+  font-family: 'Spoqa';
   font-size: inherit;
   line-height: inherit;
 }
@@ -2315,7 +2316,8 @@ label {
   display: inline-block;
   max-width: 100%;
   margin-bottom: 5px;
-  font-weight: bold;
+  font-family: 'Spoqa';
+  font-weight: 500;
 }
 input[type="search"] {
   -webkit-box-sizing: border-box;

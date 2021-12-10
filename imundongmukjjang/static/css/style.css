@@ -94,16 +94,16 @@ body {
     color: #555252 !important;
 }
 .contact-form .form-control::-webkit-input-placeholder{
-    color: #fff !important;
+    color: #1B2B44 !important;
 }
 .contact-form .form-control::-moz-placeholder{
-    color: #fff !important;
+    color: #1B2B44 !important;
 }
 .contact-form .form-control:-moz-placeholder{
-    color: #fff !important;
+    color: #1B2B44 !important;
 }
 .contact-form .form-control:-ms-input-placeholder{
-    color: #fff !important;
+    color: #1B2B44 !important;
 }
 
 *,*:after,*:before {
@@ -114,7 +114,7 @@ body {
     margin: 0;
 }
 a {
-    color: #0098d7;
+    color: #555252;
     padding: 0;
     margin: 0;
     text-decoration: none;
@@ -157,6 +157,7 @@ h2 {
 }
 h3 {
     font-size: 18px;
+    font-family: 'Spoqa';
 }
 h4 {
     font-size: 16px;
@@ -304,7 +305,7 @@ html, body, .wrapper{
 .header-top-content ul li{}
 .header-top-content ul li a{
     color: #fff;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 300;
     padding-left: 0;
 }
@@ -323,7 +324,7 @@ html, body, .wrapper{
 .header-top-menu ul li{}
 .header-top-menu ul li a{
     color: #fff;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 300;
     padding-right: 0px;
 }
@@ -735,7 +736,7 @@ a.carousel-control.right > span{
 }
 
 .product-hover a:last-child{
-    font-size: 14px;
+    font-size: 16px;
     text-transform: uppercase;
     display: block;
     background: #323232;
@@ -771,14 +772,14 @@ a.carousel-control.right > span{
 .product-title h3{
     margin: 0;
     padding: 0;
-    text-align: left;
+    text-align: center;
     color: #fff;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 18px;
-    float: left;
-    padding: 10px;
-    padding-left: 15px;
+    font-family: 'Spoqa';
+    font-weight: 500;
+    font-size: 20px;
+    /*float: left;*/
+    padding: 5px;
+    padding-left: 0;
 }
 .product-title span{
     display: block;
@@ -945,6 +946,27 @@ a.carousel-control.right > span{
     margin-top: 30px;
     text-align: center;
 }
+
+.review-section .left-content {
+    margin-left: 70px;
+}
+
+.review-section .left-content h1{
+    font-family: 'Spoqa';
+    font-size: 42px;
+    font-weight: 300;
+}
+.review-section .left-content h2{
+    font-family: 'Spoqa';
+    font-size: 28px;
+    font-weight: 300;
+}
+.review-section .left-content span{
+    font-family: 'Spoqa';
+    font-size: 40px;
+    font-weight: 600;
+    color: #1B2B44;
+}
 .feedback .item:before{
     display: none;
 }
@@ -967,6 +989,7 @@ a.carousel-control.right > span{
     width: 75%;
     text-shadow: none;
     margin-top: 30px;
+    font-family: 'Spoqa';
 }
 .feedback .item .carousel-caption p{
     font-size: 14px;
@@ -976,8 +999,9 @@ a.carousel-control.right > span{
     line-height: 24px;
 }
 .feedback .item .carousel-caption h3{
-    font-size: 18px;
-    font-weight: 700;
+    font-family: 'Spoqa';
+    font-size: 30px;
+    font-weight: 400;
     color: #1B2B44;
     text-align: center;
 }
@@ -1034,7 +1058,7 @@ a.carousel-control.right > span{
  */
 .news-letter-section{
     display: block;
-    background: url(../images/bg.png) #1B2B44 no-repeat;
+    /*background: url(../images/bg.png) #1B2B44 no-repeat;*/
     background-size: cover;
     background-attachment: fixed;
     text-align: center;
@@ -1142,15 +1166,18 @@ a.carousel-control.right > span{
     height: auto;
 }
 .blog-item h3{
-    font-size: 18px;
-    font-weight: 600;
+    font-family: 'Spoqa';
+    font-size: 20px;
+    font-weight: 300;
+    text-align: left;
     color: #555252;
     display: block;
-    line-height: 24px;
+    line-height: 30px;
     position: relative;
+    padding: 0px 200px 0px 300px;
     margin: 15px 0 ;
-    padding: 0;
 }
+
 .blog-item h3:before{
     content: "";
     position: absolute;
@@ -1177,14 +1204,16 @@ a.carousel-control.right > span{
     font-size: 16px;
     border-radius: 3px;
     transition: all 0.5s;
+    
 }
 .blog-item a:last-child:hover{
-    background: #17A689
+    background: #8D7150;
 }
 
 /*
     CONTACT SECTION
  */
+
 .contact-section{
     background: url(../images/map-bg.png) #2d3237 no-repeat;
     background-size:cover;   
@@ -1362,11 +1391,16 @@ a.carousel-control.right > span{
     display: block;
 }
 .contact-form .input-group input.form-control, .contact-form .input-group textarea.form-control{
-    width: 100%;
-    display: block;
-    background: transparent;
-    border: 1px solid #fff;
+    width: 50%;
+    position:relative;
+    margin-left: auto;
+    margin-right: auto;
+    display:inline-block;
+    background:transparent;
+    border: 1px solid #1B2B44;
     height: 50px;
+    font-family: 'Spoqa';
+    
 }
 .contact-form .input-group textarea.form-control{
     height: 150px;
@@ -1378,14 +1412,16 @@ a.carousel-control.right > span{
 }
 
 .contact-form .input-group input.contact-submit{
-    display: inline-block;
+    display: block;
     background: #1B2B44 !important;
     padding: 10px 40px;
     border: none;
     color: #fff !important;
     margin-top: 30px;
+    font-family: 'Spoqa';
     font-size: 16px;
     text-transform: uppercase;
+    
 }
 
 /*
@@ -1527,7 +1563,7 @@ footer.footer p a{
     }
      .carousel-inner .item .carousel-caption h2, .carousel-inner .item .carousel-caption h3{
         /* 배너 폰트 변경 */
-        font-family: 'Spoqa Han Sans Neo';
+        font-family: 'Spoqa';
         font-weight: 400;
         font-size: 25px;
     }

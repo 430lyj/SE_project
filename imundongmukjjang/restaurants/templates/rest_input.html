@@ -4,93 +4,125 @@
 {% block link %}
 {%endblock%}
 {% block content %}
+
+<section class="news-section">
     <div class="container">
-        <form method="POST" action="{% url 'restaurants:create_restaurant' %}">
-            {% csrf_token %}
-            <table>
-                {{form.as_table}}
-            </table>
-                <input type="text" id="sample4_postcode" placeholder="우편번호">
-                <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-                <input type="text" name="sample4_roadAddress" id="sample4_roadAddress" placeholder="도로명주소">
-                <input type="text" name="sample4_jibunAddress" id="sample4_jibunAddress" placeholder="지번주소">
-                <span id="guide" style="color:#999;display:none"></span>
-                <input type="text" name="sample4_detailAddress"" id="sample4_detailAddress" placeholder="상세주소">
-
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
-    function sample4_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var roadAddr = data.roadAddress; // 도로명 주소 변수
-                var extraRoadAddr = ''; // 참고 항목 변수
-
-                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraRoadAddr += data.bname;
-                }
-                // 건물명이 있고, 공동주택일 경우 추가한다.
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample4_postcode').value = data.zonecode;
-                document.getElementById("sample4_roadAddress").value = roadAddr;
-                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="titie-section wow fadeInDown animated ">
+                    <h1>식당 정보 추가</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row" >
+            <div class="blog-item">
+                <form action="{% url 'restaurants:create_restaurant' %}" method="post" enctype="multipart/form-data">
+                {%csrf_token%}
+                <h3>
+                    <div class="form-group">
+                        <a><strong>사업자 등록증 첨부</strong></a>
+                            <label class="sr-only" action="http://localhost/upload.php" method="post" enctype="multipart/form-data">Business Registration</label>
+                            <input type="file" name="uploadedFile" placeholder="사업자등록증 첨부">
+                    </div>
+                    <label><i class="pe-7s-ticket"></i> 식당 이름 <input type="text" name="name"></label></br></br>
+                    <label><i class="pe-7s-call"></i> 식당 전화번호 <input type="text" name="phone"></label></br></br>
+                    <label><i class="pe-7s-menu"></i> 카테고리 
+                        <select name="category" >
+                            <option value="none">=== 선택 ===</option>
+                            {% for category in categories %}
+                            <option value="{{category.id}}">{{category}}</option>
+                            {% endfor %}    
+                        </select>
+                    </label></br></br>
+                    <label><i class="pe-7s-map-2"></i> 우편 번호 <input type="text" id="sample4_postcode">
+                        <button type="button" onclick="sample4_execDaumPostcode()">주소 찾기</button>
+                    </label></br>
+                    <label><input type="text" name="sample4_roadAddress" id="sample4_roadAddress" placeholder="도로명주소" >
+                    <label><input type="text" name="sample4_detailAddress"" id="sample4_detailAddress" placeholder="상세주소" >
+                        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+                        <script>
+                            //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+                            function sample4_execDaumPostcode() {
+                                new daum.Postcode({
+                                    oncomplete: function(data) {
+                                        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+                        
+                                        // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                                        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                                        var roadAddr = data.roadAddress; // 도로명 주소 변수
+                                        var extraRoadAddr = ''; // 참고 항목 변수
+                        
+                                        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                                        // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                                        if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                                            extraRoadAddr += data.bname;
+                                        }
+                                        // 건물명이 있고, 공동주택일 경우 추가한다.
+                                        if(data.buildingName !== '' && data.apartment === 'Y'){
+                                           extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                                        }
+                        
+                                        // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                                        document.getElementById('sample4_postcode').value = data.zonecode;
+                                        document.getElementById("sample4_roadAddress").value = roadAddr;
+                                        document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+                                        
+                        
+                                        var guideTextBox = document.getElementById("guide");
+                                        // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                                        if(data.autoRoadAddress) {
+                                            var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                                            guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                                            guideTextBox.style.display = 'block';
+                        
+                                        } else if(data.autoJibunAddress) {
+                                            var expJibunAddr = data.autoJibunAddress;
+                                            guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                                            guideTextBox.style.display = 'block';
+                                        } else {
+                                            guideTextBox.innerHTML = '';
+                                            guideTextBox.style.display = 'none';
+                                        }
+                                    }
+                                }).open();
+                            }
+                        </script>
+                </h3>
+                <center><button type="submit" class="btn" style="background-color:#1B2B44; color:#fff; padding: 10px 30px;">저장</button></center>
+            </form>
                 
-
-                var guideTextBox = document.getElementById("guide");
-                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-                if(data.autoRoadAddress) {
-                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-                    guideTextBox.style.display = 'block';
-
-                } else if(data.autoJibunAddress) {
-                    var expJibunAddr = data.autoJibunAddress;
-                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-                    guideTextBox.style.display = 'block';
-                } else {
-                    guideTextBox.innerHTML = '';
-                    guideTextBox.style.display = 'none';
-                }
-            }
-        }).open();
-    }
-</script>
-            
-            <br>
-            <input class="btn" btn-dark type="submit" value="제출하기">
-        </form>
+                {% if register == 'dup' %}
+                <script type="text/javascript">
+                alert("중복된 식당명입니다.");
+                </script>
+                <script type="text/javascript">
+                location.href="{% url 'restaurants:post_restaurant'%}";
+                </script>
+                {% elif register == 'exist' %}
+                <script type="text/javascript">
+                    alert("이미 등록한 식당이 있는 계정입니다.");
+                    </script>
+                    <script type="text/javascript">
+                    location.href="{% url 'restaurants:put_restaurant'%}";
+                    </script>
+                {% elif register == 'wrong' %}
+                <script type="text/javascript">
+                alert("잘못된 양식입니다.");
+                </script>
+                <script type="text/javascript">
+                location.href="{% url 'restaurants:post_restaurant' %}";
+                </script>
+                {% elif register == 'reg' %}
+                <script type="text/javascript">
+                alert("정상적으로 등록되었습니다.")
+                </script>
+                <script type="text/javascript">
+                location.href="{% url 'restaurants:add_menu_price' restaurant.id%}";
+                </script>
+                {% endif %}
+            </div>
+        </div>
     </div>
-    {% if register == 'dup' %}
-    <script type="text/javascript">
-    alert("중복된 식당명입니다.");
-    </script>
-    <script type="text/javascript">
-    location.href="{% url 'restaurants:post_restaurant' %}";
-    </script>
-    {% elif register == 'wrong' %}
-    <script type="text/javascript">
-    alert("잘못된 양식입니다.");
-    </script>
-    <script type="text/javascript">
-    location.href="{% url 'restaurants:post_restaurant' %}";
-    </script>
-    {% elif register == 'reg' %}
-    <script type="text/javascript">
-    alert("정상적으로 등록되었습니다.")
-    </script>
-    <script type="text/javascript">
-    location.href="{% url 'restaurants:add_menu_price' restaurant.id%}";
-    </script>
-    {% endif %}
-    <a href="{% url 'home' %}">돌아가기</a>
+</section>
+</br></br></br></br></br></br>
 {%endblock%}

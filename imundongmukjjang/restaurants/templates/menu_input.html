@@ -1,21 +1,86 @@
-{% extends 'base.html' %}
 {% load static %}
-{% block title %}메뉴 추가 - 부엉아 밥먹자{%endblock%}
-{% block link %}
-{%endblock%}
-{% block content %}
-    <div class="container">
-        <form method="POST" action="{% url 'restaurants:add_menu_price' restaurant.id %}">
-            {% csrf_token %}
-            {% for menu in menus %}
-            {{menu.menu}} : {{menu.price}} <a href="{% url 'restaurants:menu_delete' menu.id %}">❌</a></br>
-            {% endfor %}
-            <input type="text" name="menu" placeholder='메뉴 이름'>
-            <input type="text" name="price" placeholder='가격'> 
-            <br>
-            <input class="btn" btn-dark type="submit" value="제출하기">
-        </form>
-    </div>
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>메뉴 추가- 부엉아 밥먹자</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="{% static 'images/favicon.png' %}">
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/popup.css' %}">
+        <script>
+            function deleteRow(ths){
+                var ths = $(ths);
+                
+                ths.parents("tr").remove();
+            }
+        </script>
+        <script type="text/javascript">
+            function setParentText(){
+                 opener.document.getElementById("pInput").value = document.getElementById("cInput").value
+            }
+       </script>
+
+    </head>
+    <body>
+
+        <!-- PRELOADER -->
+        <div id="preloader">
+            <div class="preloader-area">
+            	<div class="preloader-box">
+            		<div class="preloader"></div>
+            	</div>
+            </div>
+        </div>
+
+    <section class="news-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="titie-section wow fadeInDown animated ">
+                        <h1>메뉴 추가 및 삭제</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="blog-item">
+                    <form method="POST" action="{% url 'restaurants:add_menu_price' restaurant.id %}">
+                    {% csrf_token %}
+                    <h3 style="padding: 0px 150px 0px 190px;">
+                        <label><i class="pe-7s-plus"></i> 메뉴 추가
+                        </label></br>
+                        <label><input type="text" name="menu" placeholder="메뉴이름" > <input type="text" name="price" placeholder="가격" ></label>
+                        <center><input class="btn" btn-dark type="submit" value="수정하기"></center></br></br>
+                    </h3>
+                    </form>
+                    <h3 style="padding: 0px 150px 0px 190px;">
+                        <label><i class="pe-7s-close-circle"></i> 메뉴 삭제</label></br>
+                        <table>
+                            <thead>
+                                <th data-field="menu"></th>
+                                <th data-field="price"></th>
+                                <th data-field="delete"></th>
+                            </thead>
+                            <tbody>
+                                {% for menu in menus %}
+                                <tr style="text-align:center;">
+                                    <td>{{menu.menu}}</td>
+                                    <td>{{menu.price}}
+                                    <a href="{% url 'restaurants:menu_delete' menu.id %}" style="background: none;padding: 0 0 0 0;">❌</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </h3>
+                    <center><a onclick="window.close()">닫기</a></center>
+                </div>
+            </div>
+        </div>
+    </section>
     {% if register == "reg" %}
     <script type="text/javascript">
     alert("정상적으로 등록되었습니다.");
@@ -24,5 +89,12 @@
     location.href="{% url 'home' %}";
     </script>
     {% endif %}
-    <a href="{% url 'home' %}">돌아가기</a>
-{%endblock%}
+
+        <script src="{% static 'js/vendor/jquery-1.11.2.min.js'%}"></script>
+        <script src="{% static 'js/vendor/bootstrap.min.js'%}"></script>
+        <script src="{% static 'js/isotope.pkgd.min.js'%}"></script>
+        <script src="{% static 'js/owl.carousel.min.js'%}"></script>
+        <script src="{% static 'js/wow.min.js'%}"></script>
+        <script src="{% static 'js/custom.js'%}"></script>
+    </body>
+</html>

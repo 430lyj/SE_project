@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}카테고리별 - 부엉아 밥먹자{%endblock%}
+{% block title %}부엉아 밥먹자{%endblock%}
 {% block link %}
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
 
@@ -17,57 +17,6 @@
 <script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
 {%endblock%}
 {% block content %}
-<center>
-    <div id="map" style="width:600px;height:500px;">
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{KAKAO_APPKEY}}&libraries=services,clusterer,drawing"></script>
-    <script>
-        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-            mapOption = {
-                center: new kakao.maps.LatLng(37.5971122,127.05865113), // 지도의 중심좌표
-                level: 4 // 지도의 확대 레벨
-            };  
-        
-        // 지도를 생성합니다    
-        var map = new kakao.maps.Map(mapContainer, mapOption); 
-        
-        // 주소-좌표 변환 객체를 생성합니다
-        var geocoder = new kakao.maps.services.Geocoder();
-        
-        // 주소로 좌표를 검색합니다
-        {% for rest in restaurants %}
-        geocoder.addressSearch("{{rest.address}}", function(result, status) {
-            // 정상적으로 검색이 완료됐으면 
-             if (status === kakao.maps.services.Status.OK) {
-        
-                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-        
-                // 결과값으로 받은 위치를 마커로 표시합니다
-                var marker = new kakao.maps.Marker({
-                    map: map,
-                    position: coords
-                });
-
-                // 인포윈도우로 장소에 대한 설명을 표시합니다
-                var infowindow = new kakao.maps.InfoWindow({
-                    content: '<div style="width:150px;text-align:center;padding:6px 0;"><a href={% url 'restaurants:detail' rest.id %}>{{rest.short_name}}</a></div>'
-                });
-
-                (function(marker, infowindow) {
-                // 마커에 mouseover 이벤트를 등록하고 마우스 오버 시 인포윈도우를 표시합니다 
-                kakao.maps.event.addListener(marker, 'mouseover', function() {
-                    infowindow.open(map, marker);
-                });
-
-                // 마커에 mouseout 이벤트를 등록하고 마우스 아웃 시 인포윈도우를 닫습니다
-                kakao.maps.event.addListener(marker, 'click', function() {
-                    infowindow.close();
-                });
-        })(marker, infowindow);
-            } 
-        });
-        {% endfor %}
-        </script>
-    </div></center>
 <div class="wrapper">
 
     <div class="container">
@@ -91,9 +40,9 @@
             <table id="fresh-table" class="table">
               <thead>
                 <th data-field="name" data-sortable="false">식당명</th>
-                <th data-field="salary" data-sortable="true">최소 가격 <a href="{% url 'restaurants:category_detail' category_id 1 %}" style="color: black;"><i class="pe-7s-angle-down"></i></a> </th>
+                <th data-field="salary" data-sortable="true">최소 가격 <a href="{% url 'restaurants:rest_lists' 1 %}" style="color: black;"><i class="pe-7s-angle-down"></i></a> </th>
                 <th data-field="salary" data-sortable="true">최대 가격</th>
-                <th data-field="rate" data-sortable="true">평점<a href="{% url 'restaurants:category_detail' category_id 2 %}" style="color: black;"><i class="pe-7s-angle-down"></i></a> </th>
+                <th data-field="rate" data-sortable="true">평점</th>
                 <th data-field="city" data-sortable="false">전화번호</th>
                 <!--<th data-field="actions" data-formatter="operateFormatter" data-events="operateEvents">Actions</th>-->
               </thead>
@@ -122,57 +71,11 @@
                 {%endfor%} 
               </tbody>
             </table>
-            <center><div class="d-flex justify-content-center">
-                <ul class="pagination ">
-                    <!-- 이전 페이지 -->
-                    {% if restaurants.has_previous %}
-                    <li class="page-item">
-                        <a href="?page={{restaurants.previous_page_number}}"
-                            class="page-link">Previous</a>
-                    </li>
-                    {% else %}
-                    <li class="page-item disabled">
-                        <a class="page-link">Previous</a>
-                    </li>
-                    {% endif %}
-
-
-                    <!-- 페이지 링크들 -->
-                    {% for page in restaurants.paginator.page_range %}
-                    {% if restaurants.number == page %}
-                    <li class="page-item active">
-                        <a href="?page={{page}}" class="page-link">{{page}}</a>
-                    </li>
-                    {% else %}
-                    <li class="page-item">
-                        <a href="?page={{page}}" class="page-link">{{page}}</a>
-                    </li>
-                    {% endif %}
-                    {% endfor %}
-
-                    <!-- 다음 페이지 -->
-                    {% if restaurants.has_next %}
-                    <li class="page-item">
-                        <a href="?page={{restaurants.next_page_number}}" class="page-link">Next</a>
-                    </li>
-                    {% else %}
-                    <li class="page-item disabled">
-                        <a class="page-link">Next</a>
-                    </li>
-                    {% endif %}
-                </ul>
-          </div></center>
+          </div>
         </div>
       </div>
     </div>
-</div>
-
-    
-    <div>
-        <br>
-        <br>
-        <br><br><br><br><br><br><br>
-    </div>
+</br></br></br></br></br></br>
 {%endblock%}
 
 {% block bottom %}
