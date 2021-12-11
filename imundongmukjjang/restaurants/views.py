@@ -95,14 +95,14 @@ def create_restaurant(request):
         user = CustomUser.objects.filter(username=str(request.user))
         categories = Category.objects.all().order_by('name')
         if user.exists():
-            if user.is_assured == True:
+            if user[0].is_assured == True:
                 new_restaurant = Restaurant()
                 new_restaurant.name = request.POST['name']
                 if len(Restaurant.objects.filter(name=request.POST['name'])) != 0:
                     return render(request, "rest_input.html", {'register': 'dup'})
                 new_restaurant.phone = request.POST['phone']
                 new_restaurant.category = Category.objects.get(id=int(request.POST['category']))
-                new_restaurant.owner = CustomUser.objects.get(username=str(request.user))
+                new_restaurant.owner = user[0]
                 new_restaurant.address = request.POST["sample4_roadAddress"] + request.POST["sample4_detailAddress"]
                 new_restaurant.save()
                 return redirect('restaurants:detail', new_restaurant.id)
