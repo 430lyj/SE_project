@@ -19,11 +19,6 @@
                 <form action="{% url 'restaurants:create_restaurant' %}" method="post" enctype="multipart/form-data">
                 {%csrf_token%}
                 <h3>
-                    <div class="form-group">
-                        <a><strong>사업자 등록증 첨부</strong></a>
-                            <label class="sr-only" action="http://localhost/upload.php" method="post" enctype="multipart/form-data">Business Registration</label>
-                            <input type="file" name="uploadedFile" placeholder="사업자등록증 첨부">
-                    </div>
                     <label><i class="pe-7s-ticket"></i> 식당 이름 <input type="text" name="name"></label></br></br>
                     <label><i class="pe-7s-call"></i> 식당 전화번호 <input type="text" name="phone"></label></br></br>
                     <label><i class="pe-7s-menu"></i> 카테고리 
@@ -108,6 +103,13 @@
                 {% elif register == 'wrong' %}
                 <script type="text/javascript">
                 alert("잘못된 양식입니다.");
+                </script>
+                <script type="text/javascript">
+                location.href="{% url 'restaurants:post_restaurant' %}";
+                </script>
+                {% elif register == 'not_assured' %}
+                <script type="text/javascript">
+                alert("관리자가 식당 소유 여부를 검토하고 있습니다. 자세한 사항은 관리자에게 문의하세요.");
                 </script>
                 <script type="text/javascript">
                 location.href="{% url 'restaurants:post_restaurant' %}";

@@ -15,14 +15,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 filename = os.path.join(BASE_DIR, 'restaurants', 'restaurants.csv')
 # Create your views here.
 def home(request):
-    if request.user.is_authenticated:
-        restaurant = Restaurant.objects.filter(owner__username=str(request.user))
-        length = len(restaurant)
-        user = CustomUser.objects.values("is_assured")
-        if length > 0:
-            restaurant = restaurant[0]
-            return render(request, 'home.html', {'restaurant' : restaurant, 'len':length, 'assurance': user[0]['is_assured']})
-        return render(request, 'home.html', {'restaurant' : restaurant, 'len':length, 'assurance': user[0]['is_assured']})
     return render(request, 'home.html')
 
 def rest_page(request):
@@ -88,7 +80,6 @@ def map_search(request, sorted_id):
                 data.append(rest.restaurant)
         return render(request, 'search.html', {'restaurants': data, 'keyword':keyword, 'KAKAO_APPKEY':KAKAO_APPKEY, 'sorted_id':sorted_id})
     return render(request, 'search.html', {'keyword':keyword, 'sorted_id':sorted_id})
-    
 
 @login_required
 def post_restaurant(request):
@@ -101,22 +92,24 @@ def post_restaurant(request):
 @login_required
 def create_restaurant(request):
     try:
+        user = CustomUser.objects.filter(username=str(request.user))
         categories = Category.objects.all().order_by('name')
-        user = CustomUser.objects.get(username=str(request.user))
-        user.biz_registration = request.FILES["uploadedFile"]
-        new_restaurant = Restaurant()
-        new_restaurant.name = request.POST['name']
-        if len(Restaurant.objects.filter(name=request.POST['name'])) != 0:
-            return render(request, "rest_input.html", {'register': 'dup'})
-        new_restaurant.phone = request.POST['phone']
-        new_restaurant.category = Category.objects.get(id=int(request.POST['category']))
-        new_restaurant.owner = CustomUser.objects.get(username=str(request.user))
-        new_restaurant.address = request.POST["sample4_roadAddress"] + request.POST["sample4_detailAddress"]
-        new_restaurant.save()
-        return redirect('restaurants:detail', new_restaurant.id)
+        if user.exists():
+            if user.is_assured == True:
+                new_restaurant = Restaurant()
+                new_restaurant.name = request.POST['name']
+                if len(Restaurant.objects.filter(name=request.POST['name'])) != 0:
+                    return render(request, "rest_input.html", {'register': 'dup'})
+                new_restaurant.phone = request.POST['phone']
+                new_restaurant.category = Category.objects.get(id=int(request.POST['category']))
+                new_restaurant.owner = CustomUser.objects.get(username=str(request.user))
+                new_restaurant.address = request.POST["sample4_roadAddress"] + request.POST["sample4_detailAddress"]
+                new_restaurant.save()
+                return redirect('restaurants:detail', new_restaurant.id)
+        return render(request, "rest_input.html", {'register': 'not_assured', 'categories':categories})
     except Exception as e:
         print(e)
-        return render(request, "rest_input.html", {'register': 'wrong', 'categories':categories})
+        return render(request, "rest_input.html", {'register': 'wrong'})
 
 @login_required
 def put_restaurant(request):
