@@ -1215,9 +1215,9 @@ a.carousel-control.right > span{
  */
 
 .contact-section{
-    background: url(../images/map-bg.png) #2d3237 no-repeat;
-    background-size:cover;   
-    background-position: center center;
+    background:  url(../images/map-bg.png) #2d3237 no-repeat;
+    background-size: cover;   
+    background-position: center;
     padding: 100px 0 100px;
     display: block;
     position: relative;
@@ -1293,7 +1293,10 @@ a.carousel-control.right > span{
     color: #1B2B44;
 }
 
-.contact-section .left-content p{}
+.contact-section .left-content p{
+    
+}
+
 .contact-info{
     display: block;
     margin-top: 10px;
