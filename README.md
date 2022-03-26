@@ -3,6 +3,19 @@
 
 본 프로젝트는 이문동 인근의 맛집 소개를 목표로 제작되었습니다. 프로젝트는 메뉴를 검색하면 해당 메뉴를 판매하는 식당을 보여주는 기능, 카테고리별로 분류된 식당, 랜덤하게 추천하는 기능 등이 구현되어 있습니다. 음식점 소유주만이 회원 가입할 수 있으며, 인증된 사용자들은 자신의 식당 정보를 자유롭게 수정할 수 있습니다. 
 
+## 구현 내용 이미지
+|메인페이지|회원가입|
+|:-:|:-:|
+|<img width="390" alt="image" src="https://user-images.githubusercontent.com/75655613/160249026-4b63d324-b5a3-412b-9e01-cf3c524b053a.png">|<img width="390" alt="image" src="https://user-images.githubusercontent.com/75655613/160249021-ea09cccb-f7d5-4f83-9ba2-94a0bb525b1b.png">|
+|로그인|관리자 페이지에서 회원에 대한 권한 수정 가능|
+|<img width="390" alt="image" src="https://user-images.githubusercontent.com/75655613/160249079-62e5c20c-a97a-417a-aced-6d00048d89d8.png">|<img width="390" alt="image" src="https://user-images.githubusercontent.com/75655613/160249087-c6b72901-2921-4f8f-8fa9-27fe8dc1e402.png">|
+|카테고리별 식당 선택|카테고리별 식당 조회 결과|
+|<img width="390" alt="image" src="https://user-images.githubusercontent.com/75655613/160249132-a30c6f4d-f39d-4ddb-872d-cd7a8f27ef05.png">|<img width="390" alt="image" src="https://user-images.githubusercontent.com/75655613/160249138-c4a087db-fc66-48b8-8ef3-b1f93e9aaf1f.png">|
+|위치별 검색|랜덤 추천|
+|<img width="390" alt="image" src="https://user-images.githubusercontent.com/75655613/160249159-2e824517-53a1-4354-b30f-8f8e61e81cdf.png">|<img width="390" alt="image" src="https://user-images.githubusercontent.com/75655613/160250008-21d6d1dd-61b1-45c8-8d51-dfb53ed5c51f.png">|
+|최소 가격별 정렬|평점별 정렬|
+|<img width="390" alt="image" src="https://user-images.githubusercontent.com/75655613/160250082-b7d20b03-4093-4926-b358-47f23ad95493.png">|<img width="390" alt="image" src="https://user-images.githubusercontent.com/75655613/160250118-a5ac4d98-16d8-40bd-a53d-2fe189e37d9d.png">|
+
 ## 구현 내용 및 우선순위
 |     대항목     |       소항목       |     담당자     |   마감일시    |우선 구현 순위|
 | :---: | :---: | :---: | :---: | :---:|
